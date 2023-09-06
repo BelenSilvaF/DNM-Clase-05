@@ -14,7 +14,7 @@
 
             body {
                 color: rgba(225, 225, 225, 0.6);
-                background: #222;
+                background: #472D30;
                 font-family: Helvetica, Arial, sans-serif;
                 font-size: 1rem;
             }
@@ -61,7 +61,7 @@
                 width: 16%;
                 margin: 1%;
                 padding: 1%;
-                background: rgba(106, 56, 31, 0.5);
+                background: rgba(114, 61, 70, 0.9);
                 border-radius: 5px 5px;
                 box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
             }
@@ -71,9 +71,11 @@
             }
 
             section article.jpn {
-                color: rgba(220, 171, 107, 0.9);
+                color: rgba(255, 225, 168, 0.9);
             }
-
+            section article.ind {
+                color: rgba(226, 109, 92, 0.9);
+            }
 
             section article h3 {
                 font-size: calc(3rem + 2vw);
@@ -126,13 +128,14 @@
                 <section></section>
             </main>
             <footer>
-                <p><a href="#">Nombre Apellido</a> <a href="#">DNO037</a></p>
+                <p><a href="#">Belén silva</a> <a href="#">DNO037</a></p>
             </footer>
         </div>
         <select name="select" id="opciones">
             <option>All</option>
             <option value="Japan">Japan</option>
             <option value="Chile">Chile</option>
+            <option value="Indonesia">Indonesia</option>
         </select>
         <!--Primero vamos a buscar la versión más reciente de jQuery-->
         <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
@@ -150,7 +153,7 @@
                     data.features.forEach(function (t, i) {
                         var articuloTipo;
                         //par de alternativas para la variable articuloTipo
-                        if (t.properties.place.includes("Japan")) { articuloTipo = '<article class="jpn">'; } else if (t.properties.place.includes("Chile")) { articuloTipo = '<article class="cl">'; } else { articuloTipo = '<article class="etc">';}
+                        if (t.properties.place.includes("Japan")) { articuloTipo = '<article class="jpn">'; } else if (t.properties.place.includes("Chile")) { articuloTipo = '<article class="cl">'; } else if (t.properties.place.includes("Indonesia")) { articuloTipo = '<article class="ind">'; }else { articuloTipo = '<article class="etc">';}
                         //aplicación del articuloTipo y la pequeña función
                         $("section").append(`${articuloTipo}<h3>${t.properties.mag.toFixed(1)}</h3><p>${t.properties.place}</p><p><a href="${t.properties.url}" target="_blank" rel="noopener noreferrer">${registro(t.properties.time)}</a></p></article>`);
                     });
@@ -160,14 +163,18 @@
                         valor = $("select").val();
                         if (valor == "Japan") {
                             $(".jpn").show();
-                            $(".cl, .etc").hide();
+                            $(".ind, .cl, .etc").hide();
                         } 
                         else if (valor == "Chile") {
                         $(".cl").show()
-                        $(".jpn, .etc").hide();
+                        $(".ind,.jpn, .etc").hide();
+                        }
+                        else if (valor == "Indonesia") {
+                        $(".ind").show()
+                        $(".cl, .jpn, .etc").hide();
                         }
                         else {
-                           $(".jpn, .cl, .etc").show();
+                           $(".ind, .jpn, .cl, .etc").show();
                        }
                     });
                 }); // cierro $.getJSON((){});
